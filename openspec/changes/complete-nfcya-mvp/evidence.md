@@ -62,7 +62,7 @@ Copia aislada (web :3100, API :3101, base `nfcya_test`), `next dev` arrancado si
 |---|---|
 | Backend unitarias | 101/101 |
 | Backend e2e | 174/174 (11 suites) |
-| Backend lint / `tsc` (build) | ✅ / ✅ (`tsc` con tests: 2 errores de tipos conocidos en `test/profiles.e2e-spec.ts`, las pruebas pasan) |
+| Backend lint / `tsc` | ✅ / ✅ (los 2 errores de tipos de `test/profiles.e2e-spec.ts` se corrigieron el mismo día) |
 | Frontend lint / `tsc` / `next build` | ✅ / ✅ / ✅ (22 rutas) |
 | `e2e/smoke.mjs` | 45/45 |
 | `e2e/auth-smoke.mjs` | 28/28 |
