@@ -1,13 +1,14 @@
 # Tasks: completar NFCYa — frontend
 
-Marcar como completada solo con evidencia en código y pruebas. Numeración del paquete original; las tareas de backend están en `backend/openspec/changes/complete-nfcya-mvp/tasks.md`.
+Marcar como completada solo con evidencia en código y pruebas. Numeración del paquete original; las tareas de backend están en `backend/openspec/changes/archive/2026-11-13-complete-nfcya-mvp/tasks.md`.
 
-## Estado al 2026-11-13
-- **Avance:** 43/47 tareas. Pendientes: 4.14 (solo el chip NFC; QR probado en teléfono real) y 5.4 (solo iOS; Android probado), 7.5 (HTTPS y URL pública, falta entorno), 7.10 (archivar al cerrar).
+## Estado al 2026-11-13 (cierre)
+- **Avance:** 44/47 tareas. Archivado el 2026-11-13 al cerrar el MVP de la práctica.
+- **Pendientes externos (no requieren desarrollo):** 4.14 (solo el chip NFC; QR probado en teléfono real; el NFC del teléfono de prueba está dañado), 5.4 (solo iOS; Android probado; requiere URL pública), 7.5 (despliegue con HTTPS y URL pública: coordinado con el equipo de desarrollo).
 - **Pruebas (2026-11-13):** lint ✅, `tsc` ✅, `next build` ✅, smoke 45/45, auth-smoke 28/28, teléfono real Pixel 6a 40/42 + descargas verificadas a mano.
 - **Últimos cambios:** pantalla `/admin/users` con alta de administradores y eliminación (6.6), vista previa sin barra de desplazamiento (2.13), teléfono del perfil público con botones WhatsApp y Llamar (2.15), smoke más robusto (ver `evidence.md` → «Cambios posteriores»).
-- **Decisiones de alcance (2026-11-12):** el despliegue a producción (7.5) se coordinará con el equipo de desarrollo y no entra en la práctica; membresías y pagos Wompi (backlog 8.1, 8.2) no se desarrollan por tiempo. El MVP se considera funcional.
-- **Archivado (2026-11-13):** `auth-frontend-integration` (67/67) → `openspec/changes/archive/2026-11-13-auth-frontend-integration/`; sus requisitos pasaron a `openspec/specs/auth/*` y `openspec/specs/ui/user-profile-display`.
+- **Decisiones de alcance (2026-11-12):** el despliegue a producción (7.5) se coordina con el equipo de desarrollo y no entra en la práctica; membresías y pagos Wompi (backlog 8.1, 8.2) no se desarrollan por tiempo. El MVP se considera funcional.
+- **Archivado (2026-11-13):** `auth-frontend-integration` (67/67) y este cambio, en `openspec/changes/archive/`; sus requisitos pasaron a `openspec/specs/`.
 
 ## 0. Inspección y línea base
 - [x] 0.1 Revisar repositorios, ramas y cambios OpenSpec existentes.
@@ -65,9 +66,9 @@ Marcar como completada solo con evidencia en código y pruebas. Numeración del 
 ## 7. Calidad y entrega
 - [x] 7.1 Ejecutar todas las pruebas backend/frontend. — lint, build y `e2e/smoke.mjs` 35/35 (Chromium real, escritorio y móvil).
 - [x] 7.2 Ejecutar build/compilación de producción.
-- [ ] 7.5 Verificar HTTPS, CORS, cookies y URL pública en entorno acordado.
+- [ ] 7.5 Verificar HTTPS, CORS, cookies y URL pública en entorno acordado. — **Coordinado con el equipo de desarrollo** (decisión del 2026-11-12): el despliegue a producción con HTTPS, dominio público, CORS, cookies `secure` y `trust proxy` no forma parte de la práctica; queda a cargo del equipo. La configuración ya está parametrizada por variables de entorno (ver README).
 - [x] 7.6 Revisar logs y datos sensibles. — `console.*` retirados; tokens solo en memoria.
 - [x] 7.7 Documentar instalación, ejecución, migraciones, pruebas y limitaciones. — `README.md`.
 - [x] 7.8 Registrar backlog no entregado. — ver design.md del backend «Backlog no entregado».
 - [x] 7.9 Preparar demostración basada solo en funcionalidades verificadas. — `demo.md` + `pnpm seed:demo` en el backend.
-- [ ] 7.10 Archivar cambios OpenSpec completados.
+- [x] 7.10 Archivar cambios OpenSpec completados. — 2026-11-13: archivado con pendientes externos documentados (ver «Estado»).

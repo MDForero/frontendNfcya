@@ -2,7 +2,7 @@
 
 Cliente web de nfcYA (Next.js 16 App Router + React 19 + Tailwind 4 + shadcn/ui sobre Base UI). Consume la API de [`../backend`](../backend).
 
-Los requisitos están en [`openspec/`](openspec/): especificaciones vigentes en `openspec/specs/` (autenticación, sesión, rutas protegidas, perfil de usuario), el cambio en curso `complete-nfcya-mvp` (perfil, enlaces, NFC/QR, perfil público, administración) y `auth-frontend-integration` ya archivado en `openspec/changes/archive/`.
+Los requisitos están en [`openspec/`](openspec/): especificaciones vigentes en `openspec/specs/` (autenticación, sesión, rutas protegidas, navegación, diseño responsive, perfil de usuario). Los cambios `auth-frontend-integration` y `complete-nfcya-mvp` están archivados en `openspec/changes/archive/`.
 
 > Next 16 cambia APIs y convenciones respecto a versiones anteriores: antes de tocar rutas o caché, consulta `node_modules/next/dist/docs/` (ver `AGENTS.md`).
 
@@ -83,7 +83,7 @@ BACKEND_LOG=/tmp/backend.log DB_URL=postgres://nfcya:nfcya@localhost:5432/nfcya 
 CHROME_PATH=/ruta/a/chrome node e2e/smoke.mjs      # o e2e/auth-smoke.mjs
 ```
 
-Necesitan `playwright-core` y un Chrome/Chromium. Crean usuarios con sufijo aleatorio en la base indicada y modifican roles y estados con `psql`, así que usa la base de desarrollo, nunca la de producción. Resultados y defectos: `openspec/changes/complete-nfcya-mvp/evidence.md`. Guion de la demo: `openspec/changes/complete-nfcya-mvp/demo.md`.
+Necesitan `playwright-core` y un Chrome/Chromium. Crean usuarios con sufijo aleatorio en la base indicada y modifican roles y estados con `psql`, así que usa la base de desarrollo, nunca la de producción. Resultados y defectos: `openspec/changes/archive/2026-11-13-complete-nfcya-mvp/evidence.md`. Guion de la demo: `openspec/changes/archive/2026-11-13-complete-nfcya-mvp/demo.md`.
 
 ## Limitaciones conocidas
 

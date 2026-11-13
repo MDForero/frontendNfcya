@@ -4,7 +4,7 @@
 NFCYa ya dispone de una base importante de autenticación, sesiones y control de acceso, así como interfaces iniciales. Sin embargo, aún falta el flujo central del producto: que una persona o empresa gestione un perfil digital, comparta una URL por NFC o QR y permita a visitantes consultar la información pública. La integración frontend-backend no estaba validada al corte del informe.
 
 ## What Changes
-Cambio compartido con `backend/openspec/changes/complete-nfcya-mvp` (mismo nombre). Este repositorio cubre la parte de **frontend**.
+Cambio compartido con `backend/openspec/changes/archive/2026-11-13-complete-nfcya-mvp` (mismo nombre). Este repositorio cubre la parte de **frontend**.
 
 1. Estabilizar autenticación existente sin reconstruirla.
 2. Implementar perfil digital y su edición.
