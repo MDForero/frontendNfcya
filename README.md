@@ -2,7 +2,7 @@
 
 Cliente web de nfcYA (Next.js 16 App Router + React 19 + Tailwind 4 + shadcn/ui sobre Base UI). Consume la API de [`../backend`](../backend).
 
-Los requisitos están en [`openspec/`](openspec/): cambios `auth-frontend-integration` (autenticación) y `complete-nfcya-mvp` (perfil, enlaces, NFC/QR, perfil público, administración).
+Los requisitos están en [`openspec/`](openspec/): especificaciones vigentes en `openspec/specs/` (autenticación, sesión, rutas protegidas, perfil de usuario), el cambio en curso `complete-nfcya-mvp` (perfil, enlaces, NFC/QR, perfil público, administración) y `auth-frontend-integration` ya archivado en `openspec/changes/archive/`.
 
 > Next 16 cambia APIs y convenciones respecto a versiones anteriores: antes de tocar rutas o caché, consulta `node_modules/next/dist/docs/` (ver `AGENTS.md`).
 

@@ -7,7 +7,7 @@ Marcar como completada solo con evidencia en código y pruebas. Numeración del 
 - **Pruebas:** `pnpm lint` ✅, smoke 45/45 (11-12), auth-smoke 28/28 (11-09), teléfono real Pixel 6a 40/42 + descargas verificadas a mano (11-13).
 - **Últimos cambios:** pantalla `/admin/users` con alta de administradores y eliminación (6.6), vista previa sin barra de desplazamiento (2.13), teléfono del perfil público con botones WhatsApp y Llamar (2.15), smoke más robusto (ver `evidence.md` → «Cambios posteriores»).
 - **Decisiones de alcance (2026-11-12):** el despliegue a producción (7.5) se coordinará con el equipo de desarrollo y no entra en la práctica; membresías y pagos Wompi (backlog 8.1, 8.2) no se desarrollan por tiempo. El MVP se considera funcional.
-- **Pendiente de decisión:** archivar `auth-frontend-integration` (67/67) cuando se apruebe.
+- **Archivado (2026-11-13):** `auth-frontend-integration` (67/67) → `openspec/changes/archive/2026-11-13-auth-frontend-integration/`; sus requisitos pasaron a `openspec/specs/auth/*` y `openspec/specs/ui/user-profile-display`.
 
 ## 0. Inspección y línea base
 - [x] 0.1 Revisar repositorios, ramas y cambios OpenSpec existentes.
