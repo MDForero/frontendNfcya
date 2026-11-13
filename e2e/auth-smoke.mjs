@@ -119,8 +119,12 @@ try {
   await createVerifiedUser(userEmail, 'Auth Prueba');
   {
     const { page, stats } = await newSession(browser);
+    // La restauración de sesión al cargar hace un /auth/refresh (401 sin cookie); en `next dev`
+    // sin compilar puede llegar tarde, así que se espera antes de contar.
+    const initialRefresh = page.waitForResponse((r) => r.url().endsWith('/auth/refresh'), { timeout: 15000 }).catch(() => undefined);
     await page.goto(`${WEB}/links`);
     await page.waitForURL('**/login?callbackUrl=%2Flinks');
+    await initialRefresh;
     await page.fill('#email', userEmail);
     await page.fill('#password', PASSWORD);
     await page.click('button[type=submit]');
@@ -298,11 +302,11 @@ try {
     await a.page.fill('#confirmPassword', NEW);
     await a.page.click('button[type=submit]');
     await a.page.getByText('La contraseña actual es incorrecta').waitFor();
-    check('Cambio con contraseña actual incorrecta → error en el campo', (await a.page.getByText('exitosamente').count()) === 0);
+    check('Cambio con contraseña actual incorrecta → error en el campo', (await a.page.getByText('Contraseña cambiada correctamente').count()) === 0);
 
     await a.page.fill('#currentPassword', PASSWORD);
     await a.page.click('button[type=submit]');
-    await a.page.getByText('Contraseña cambiada exitosamente').waitFor();
+    await a.page.getByText('Contraseña cambiada correctamente').first().waitFor();
     check('Cambio de contraseña correcto', true);
 
     await a.page.reload();

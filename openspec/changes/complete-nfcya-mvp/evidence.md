@@ -54,6 +54,21 @@ Extra: error de red en el login (`auth-smoke` §3) y el botón de Google con `/a
 - **Vista previa del perfil** (2026-11-12): sin barra de desplazamiento visible (quedaba recortada por el marco), `overscroll-contain` y foco por teclado. Verificado en 1280 px y 1024 px: barra de 0 px y desplazamiento con rueda.
 - **Teléfono → WhatsApp** (2026-11-12): en el perfil público hay dos acciones rápidas, «WhatsApp» (`https://wa.me/…`) y «Llamar» (`tel:`, para fijos o quien prefiera llamar), y el número del dato de contacto abre WhatsApp; con email y sitio web visibles los 4 botones caben a 360 px sin scroll horizontal; el email sigue con `mailto:` (cliente de correo predeterminado, p. ej. Outlook). El editor indica que se use el indicativo (sin él se asume +57). La vCard conserva el teléfono. Smoke: comprobación nueva y la de orden de enlaces ahora mira solo la sección «Enlaces».
 
+## Corrida completa (2026-11-13)
+
+Copia aislada (web :3100, API :3101, base `nfcya_test`), `next dev` arrancado sin caché.
+
+| Suite | Resultado |
+|---|---|
+| Backend unitarias | 101/101 |
+| Backend e2e | 174/174 (11 suites) |
+| Backend lint / `tsc` (build) | ✅ / ✅ (`tsc` con tests: 2 errores de tipos conocidos en `test/profiles.e2e-spec.ts`, las pruebas pasan) |
+| Frontend lint / `tsc` / `next build` | ✅ / ✅ / ✅ (22 rutas) |
+| `e2e/smoke.mjs` | 45/45 |
+| `e2e/auth-smoke.mjs` | 28/28 |
+
+`auth-smoke` dio 20/22 en la primera corrida, por fallos del script y no de la app: (1) con `next dev` sin compilar, el `/auth/refresh` de la restauración de sesión llegaba tarde y se contaba como re-autenticación al navegar (el mismo caso que se corrigió en `smoke` el 11-12; ahora se espera antes de contar). Una traza con el servidor compilado mostró 0 refresh en las 5 navegaciones. (2) El texto esperado tras cambiar la contraseña era el anterior a los toasts; ahora es «Contraseña cambiada correctamente.». Tras corregir el script: 28/28 con el servidor otra vez sin caché.
+
 ## Teléfono real (2026-11-13)
 
 Pixel 6a, Android 17, navegador Brave (Chromium 157) controlado por USB (`adb forward` a `chrome_devtools_remote` + `connectOverCDP`). La app corría en una copia aislada (web :3100, API :3101, base `nfcya_test`) expuesta al teléfono con `adb reverse`, así que el teléfono la abría como `localhost`, que es un contexto seguro. Viewport 411×736, DPR 2,625, táctil.
