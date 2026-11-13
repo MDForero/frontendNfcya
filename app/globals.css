@@ -7,9 +7,28 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-heading: var(--font-inter), -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  /* Paleta NFCya (diseño aprobado, estilo Apple) */
+  --color-brand: #0071e3;
+  --color-brand-strong: #0058b0;
+  --color-brand-soft: #e8f1fd;
+  --color-orange: #ff7a1a;
+  --color-orange-soft: #fff1e6;
+  --color-orange-ink: #b4500a;
+  --color-success: #1e8e3e;
+  --color-success-ink: #1a7a35;
+  --color-success-soft: #e6f4ea;
+  --color-danger: #d70015;
+  --color-danger-soft: #fff0f1;
+  --color-ink: #1d1d1f;
+  --color-ink-2: #3a3a3c;
+  --color-ink-3: #6e6e73;
+  --color-fill: #f2f2f7;
+  --color-fill-2: #e8e8ed;
+  --color-separator: #e5e5ea;
+  --color-switch-on: #34c759;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -49,30 +68,30 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --background: #f5f5f7;
+  --foreground: #1d1d1f;
+  --card: #ffffff;
+  --card-foreground: #1d1d1f;
+  --popover: #ffffff;
+  --popover-foreground: #1d1d1f;
+  --primary: #0071e3;
+  --primary-foreground: #ffffff;
+  --secondary: #f2f2f7;
+  --secondary-foreground: #1d1d1f;
+  --muted: #f2f2f7;
+  --muted-foreground: #6e6e73;
+  --accent: #e8f1fd;
+  --accent-foreground: #0058b0;
+  --destructive: #d70015;
+  --border: #e5e5ea;
+  --input: #d2d2d7;
+  --ring: #0071e3;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
+  --radius: 0.875rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -126,5 +145,52 @@
   }
   html {
     @apply font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
+
+@layer components {
+  /* Barras translúcidas tipo iOS */
+  .glass {
+    background: rgb(245 245 247 / 0.8);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+  }
+  .glass-white {
+    background: rgb(255 255 255 / 0.86);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+  }
+  /* Título grande de sección (Large Title de iOS) */
+  .large-title {
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.08;
+  }
+  /* Encabezado de grupo de ajustes */
+  .group-label {
+    padding-left: 1rem;
+    padding-bottom: 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-ink-3);
+  }
+}
+/* Barra de progreso de las notificaciones emergentes (components/ui/toast.tsx) */
+@keyframes toast-progress {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  [style*="toast-progress"] { animation: none !important; }
+}
+
+/* Edge/IE añaden su propio ojo nativo: usamos el de PasswordInput. */
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+

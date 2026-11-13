@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { resetPassword } from '@/lib/api/auth';
 import { validatePassword } from '@/lib/utils/auth-helpers';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+import { PasswordInput } from '@/components/ui/password-input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
@@ -25,14 +25,14 @@ function ResetPasswordContent() {
     return (
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center text-red-600">Token No Encontrado</CardTitle>
+          <CardTitle className="large-title text-[30px] sm:text-center text-danger">Enlace no válido</CardTitle>
         </CardHeader>
         <CardContent>
           <Alert variant="destructive">
             El enlace de restablecimiento es inválido o ha expirado.
           </Alert>
           <Link href="/forgot-password" className="block mt-4">
-            <Button className="w-full">Solicitar Nuevo Enlace</Button>
+            <Button className="h-12 w-full text-[17px]">Solicitar Nuevo Enlace</Button>
           </Link>
         </CardContent>
       </Card>
@@ -61,7 +61,6 @@ function ResetPasswordContent() {
       alert('Contraseña restablecida exitosamente. Ahora puedes iniciar sesión.');
       router.push('/login');
     } catch (error: any) {
-      console.error('Reset password error:', error);
       const errorMsg = error.response?.data?.message || error.message;
 
       if (errorMsg?.toLowerCase().includes('token') || errorMsg?.toLowerCase().includes('expirado')) {
@@ -77,8 +76,8 @@ function ResetPasswordContent() {
   return (
     <Card className="w-full max-w-md">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold text-center">Restablecer Contraseña</CardTitle>
-        <CardDescription className="text-center">
+        <CardTitle className="large-title text-[30px] sm:text-center">Restablecer contraseña</CardTitle>
+        <CardDescription className="text-base text-ink-3 sm:text-center">
           Ingresa tu nueva contraseña
         </CardDescription>
       </CardHeader>
@@ -88,42 +87,42 @@ function ResetPasswordContent() {
 
           <div className="space-y-2">
             <Label htmlFor="password">Nueva Contraseña</Label>
-            <Input
+            <PasswordInput
               id="password"
-              type="password"
+              autoComplete="new-password"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               disabled={isLoading}
             />
-            {errors.password && <p className="text-sm text-red-600">{errors.password}</p>}
-            <p className="text-xs text-gray-500">
+            {errors.password && <p className="text-sm text-danger">{errors.password}</p>}
+            <p className="text-xs text-ink-3">
               Debe tener 8-128 caracteres, al menos una letra y un número
             </p>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="confirmPassword">Confirmar Contraseña</Label>
-            <Input
+            <PasswordInput
               id="confirmPassword"
-              type="password"
+              autoComplete="new-password"
               placeholder="••••••••"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               disabled={isLoading}
             />
-            {errors.confirm && <p className="text-sm text-red-600">{errors.confirm}</p>}
+            {errors.confirm && <p className="text-sm text-danger">{errors.confirm}</p>}
           </div>
 
-          <Button type="submit" className="w-full" disabled={isLoading}>
+          <Button type="submit" className="h-12 w-full text-[17px]" disabled={isLoading}>
             {isLoading ? 'Restableciendo...' : 'Restablecer Contraseña'}
           </Button>
 
           <div className="text-center space-y-2">
-            <Link href="/forgot-password" className="block text-sm text-blue-600 hover:underline">
+            <Link href="/forgot-password" className="block text-sm font-semibold text-brand hover:underline">
               Solicitar nuevo enlace
             </Link>
-            <Link href="/login" className="block text-sm text-gray-600 hover:underline">
+            <Link href="/login" className="block text-sm text-ink-3 hover:underline">
               Volver al login
             </Link>
           </div>
@@ -138,11 +137,11 @@ export default function ResetPasswordPage() {
     <Suspense fallback={
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center">Restablecer Contraseña</CardTitle>
+          <CardTitle className="large-title text-[30px] sm:text-center">Restablecer contraseña</CardTitle>
         </CardHeader>
         <CardContent className="py-12">
           <div className="flex items-center justify-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            <div className="animate-spin rounded-full h-10 w-10 border-[3px] border-fill-2 border-t-brand"></div>
           </div>
         </CardContent>
       </Card>

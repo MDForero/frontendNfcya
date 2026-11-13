@@ -7,6 +7,7 @@ import { register } from '@/lib/api/auth';
 import { validateEmail, validatePassword } from '@/lib/utils/auth-helpers';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { PasswordInput } from '@/components/ui/password-input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
@@ -59,7 +60,6 @@ export default function RegisterPage() {
       await register({ name: name.trim(), email: email.toLowerCase(), password });
       setSuccess(true);
     } catch (error: any) {
-      console.error('Register error:', error);
 
       const errorMessage = error.response?.data?.message || error.message;
 
@@ -77,21 +77,21 @@ export default function RegisterPage() {
     return (
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center text-green-600">
+          <CardTitle className="large-title text-[30px] sm:text-center text-success-ink">
             ¡Registro Exitoso!
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <Alert className="bg-green-50 border-green-200">
-            <p className="text-sm text-green-800">
+          <Alert className="bg-success-soft">
+            <p className="text-sm text-success-ink">
               Te hemos enviado un email de verificación a <strong>{email}</strong>.
               Por favor revisa tu bandeja de entrada y haz clic en el enlace para verificar tu cuenta.
             </p>
           </Alert>
 
-          <p className="text-sm text-center text-gray-600">
+          <p className="text-sm text-center text-ink-3">
             ¿Ya verificaste tu email?{' '}
-            <Link href="/login" className="text-blue-600 hover:underline font-medium">
+            <Link href="/login" className="font-semibold text-brand hover:underline font-medium">
               Inicia sesión
             </Link>
           </p>
@@ -103,8 +103,8 @@ export default function RegisterPage() {
   return (
     <Card className="w-full max-w-md">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold text-center">Crear Cuenta</CardTitle>
-        <CardDescription className="text-center">
+        <CardTitle className="large-title text-[30px] sm:text-center">Crear cuenta</CardTitle>
+        <CardDescription className="text-base text-ink-3 sm:text-center">
           Ingresa tus datos para crear una cuenta nueva
         </CardDescription>
       </CardHeader>
@@ -126,7 +126,7 @@ export default function RegisterPage() {
               onChange={(e) => setName(e.target.value)}
               disabled={isLoading}
             />
-            {errors.name && <p className="text-sm text-red-600">{errors.name}</p>}
+            {errors.name && <p className="text-sm text-danger">{errors.name}</p>}
           </div>
 
           <div className="space-y-2">
@@ -139,32 +139,32 @@ export default function RegisterPage() {
               onChange={(e) => setEmail(e.target.value)}
               disabled={isLoading}
             />
-            {errors.email && <p className="text-sm text-red-600">{errors.email}</p>}
+            {errors.email && <p className="text-sm text-danger">{errors.email}</p>}
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="password">Contraseña</Label>
-            <Input
+            <PasswordInput
               id="password"
-              type="password"
+              autoComplete="new-password"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               disabled={isLoading}
             />
-            {errors.password && <p className="text-sm text-red-600">{errors.password}</p>}
-            <p className="text-xs text-gray-500">
+            {errors.password && <p className="text-sm text-danger">{errors.password}</p>}
+            <p className="text-xs text-ink-3">
               Debe tener 8-128 caracteres, al menos una letra y un número
             </p>
           </div>
 
-          <Button type="submit" className="w-full" disabled={isLoading}>
+          <Button type="submit" className="h-12 w-full text-[17px]" disabled={isLoading}>
             {isLoading ? 'Registrando...' : 'Registrarse'}
           </Button>
 
-          <p className="text-center text-sm text-gray-600">
+          <p className="text-center text-sm text-ink-3">
             ¿Ya tienes cuenta?{' '}
-            <Link href="/login" className="text-blue-600 hover:underline font-medium">
+            <Link href="/login" className="font-semibold text-brand hover:underline font-medium">
               Inicia sesión
             </Link>
           </p>

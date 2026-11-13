@@ -1,4 +1,4 @@
-import apiClient from './client';
+import apiClient, { refreshSession } from './client';
 
 export interface User {
   id: string;
@@ -62,11 +62,8 @@ export const login = async (data: LoginData): Promise<AuthResponse> => {
   return response.data;
 };
 
-// Refresh access token
-export const refresh = async (): Promise<AuthResponse> => {
-  const response = await apiClient.post('/auth/refresh');
-  return response.data;
-};
+// Renueva el access token (petición única compartida; ver refreshSession)
+export const refresh = (): Promise<AuthResponse> => refreshSession();
 
 // Logout current session
 export const logout = async (): Promise<void> => {

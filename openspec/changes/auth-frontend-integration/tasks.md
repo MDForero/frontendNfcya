@@ -92,13 +92,13 @@
 
 ## 12. Testing manual y verificación de flujos completos
 
-- [ ] 12.1 Probar flujo completo: registro → email de verificación → login → navegación a dashboard, verificar que funciona end-to-end
-- [ ] 12.2 Probar flujo de recuperación: forgot-password → email con token → reset-password → login, verificar funcionamiento
-- [ ] 12.3 Probar cambio de contraseña estando autenticado y verificar que se actualiza correctamente
-- [ ] 12.4 Verificar que rutas protegidas redirigen a login cuando no hay autenticación y restauran URL destino tras login
-- [ ] 12.5 Verificar que refresh automático funciona dejando sesión activa sin interacción durante tiempo cercano a expiración
-- [ ] 12.6 Probar logout desde dropdown de perfil y verificar que limpia sesión y redirige a login
-- [ ] 12.7 Probar logout all y verificar que invalida todas las sesiones
-- [ ] 12.8 Verificar manejo de errores de red y timeouts mostrando mensajes apropiados
-- [ ] 12.9 Verificar que el badge de rol muestra color correcto para cada tipo de usuario (CLIENTE, EMPRESA, SOPORTE, SUPER_ADMIN)
-- [ ] 12.10 Probar navegación entre rutas protegidas estando autenticado y verificar que no hay re-autenticaciones innecesarias
+- [x] 12.1 Probar flujo completo: registro → email de verificación → login → navegación a dashboard, verificar que funciona end-to-end — `e2e/auth-smoke.mjs` §1.
+- [x] 12.2 Probar flujo de recuperación: forgot-password → email con token → reset-password → login, verificar funcionamiento — `e2e/auth-smoke.mjs` §7.
+- [x] 12.3 Probar cambio de contraseña estando autenticado y verificar que se actualiza correctamente — `e2e/auth-smoke.mjs` §8.
+- [x] 12.4 Verificar que rutas protegidas redirigen a login cuando no hay autenticación y restauran URL destino tras login — `e2e/auth-smoke.mjs` §2 (corregido D1: el guard pisaba el callbackUrl).
+- [x] 12.5 Verificar que refresh automático funciona dejando sesión activa sin interacción durante tiempo cercano a expiración — `e2e/auth-smoke.mjs` §4 con JWT_ACCESS_TTL_SECONDS=310.
+- [x] 12.6 Probar logout desde dropdown de perfil y verificar que limpia sesión y redirige a login — `e2e/smoke.mjs` (2026-11-09).
+- [x] 12.7 Probar logout all y verificar que invalida todas las sesiones — `e2e/auth-smoke.mjs` §6.
+- [x] 12.8 Verificar manejo de errores de red y timeouts mostrando mensajes apropiados — `e2e/auth-smoke.mjs` §3 (red caída en login); errores de API vía `apiErrorMessage`.
+- [x] 12.9 Verificar que el badge de rol muestra color correcto para cada tipo de usuario (CLIENTE, EMPRESA, SOPORTE, SUPER_ADMIN) — `e2e/auth-smoke.mjs` §9 (4 roles).
+- [x] 12.10 Probar navegación entre rutas protegidas estando autenticado y verificar que no hay re-autenticaciones innecesarias — `e2e/auth-smoke.mjs` §2.

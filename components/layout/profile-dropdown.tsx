@@ -5,6 +5,7 @@ import { formatRole, getInitials, getRoleBadgeColor } from '@/lib/utils/auth-hel
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -37,29 +38,32 @@ export default function ProfileDropdown() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="focus:outline-none">
-        <Avatar className="h-9 w-9 cursor-pointer hover:ring-2 hover:ring-gray-300 transition-all">
-          <AvatarFallback className="bg-blue-600 text-white font-semibold">
+      <DropdownMenuTrigger className="focus:outline-none" aria-label="Menú de cuenta">
+        <Avatar className="h-10 w-10 cursor-pointer transition-all hover:ring-2 hover:ring-brand/30">
+          <AvatarFallback className="bg-brand-soft font-bold text-brand-strong">
             {getInitials(user.name)}
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end" className="w-64">
-        <DropdownMenuLabel className="font-normal">
-          <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{user.name}</p>
-            <p className="text-xs leading-none text-gray-500">{user.email}</p>
-            <div className="pt-1">
-              <Badge
-                variant="outline"
-                className={`text-xs ${getRoleBadgeColor(user.role)}`}
-              >
-                {formatRole(user.role)}
-              </Badge>
+        {/* Base UI requires GroupLabel (DropdownMenuLabel) inside a Menu.Group */}
+        <DropdownMenuGroup>
+          <DropdownMenuLabel className="font-normal">
+            <div className="flex flex-col space-y-1">
+              <p className="text-sm font-medium leading-none">{user.name}</p>
+              <p className="text-xs leading-none text-ink-3">{user.email}</p>
+              <div className="pt-1">
+                <Badge
+                  variant="outline"
+                  className={`text-xs ${getRoleBadgeColor(user.role)}`}
+                >
+                  {formatRole(user.role)}
+                </Badge>
+              </div>
             </div>
-          </div>
-        </DropdownMenuLabel>
+          </DropdownMenuLabel>
+        </DropdownMenuGroup>
 
         <DropdownMenuSeparator />
 
@@ -82,7 +86,7 @@ export default function ProfileDropdown() {
 
         <DropdownMenuItem
           onClick={handleLogoutAll}
-          className="cursor-pointer text-red-600 focus:text-red-600"
+          className="cursor-pointer text-danger focus:text-danger"
         >
           <LogOut className="mr-2 h-4 w-4" />
           <span>Cerrar todas las sesiones</span>

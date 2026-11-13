@@ -31,7 +31,6 @@ export default function ForgotPasswordPage() {
       await forgotPassword(email.toLowerCase());
       setSuccess(true);
     } catch (error: any) {
-      console.error('Forgot password error:', error);
       setError('Error al enviar el email. Por favor intenta de nuevo.');
     } finally {
       setIsLoading(false);
@@ -42,16 +41,16 @@ export default function ForgotPasswordPage() {
     return (
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center">Email Enviado</CardTitle>
+          <CardTitle className="large-title text-[30px] sm:text-center">Email Enviado</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <Alert className="bg-blue-50 border-blue-200">
-            <p className="text-sm text-blue-800">
+          <Alert className="bg-brand-soft">
+            <p className="text-sm text-brand-strong">
               Te hemos enviado un email a <strong>{email}</strong> con instrucciones para restablecer tu contraseña.
             </p>
           </Alert>
           <Link href="/login">
-            <Button className="w-full">Volver al Login</Button>
+            <Button className="h-12 w-full text-[17px]">Volver al Login</Button>
           </Link>
         </CardContent>
       </Card>
@@ -61,8 +60,8 @@ export default function ForgotPasswordPage() {
   return (
     <Card className="w-full max-w-md">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold text-center">¿Olvidaste tu contraseña?</CardTitle>
-        <CardDescription className="text-center">
+        <CardTitle className="large-title text-[30px] sm:text-center">¿Olvidaste tu contraseña?</CardTitle>
+        <CardDescription className="text-base text-ink-3 sm:text-center">
           Ingresa tu email y te enviaremos instrucciones para restablecerla
         </CardDescription>
       </CardHeader>
@@ -82,12 +81,12 @@ export default function ForgotPasswordPage() {
             />
           </div>
 
-          <Button type="submit" className="w-full" disabled={isLoading}>
+          <Button type="submit" className="h-12 w-full text-[17px]" disabled={isLoading}>
             {isLoading ? 'Enviando...' : 'Enviar Instrucciones'}
           </Button>
 
-          <p className="text-center text-sm text-gray-600">
-            <Link href="/login" className="text-blue-600 hover:underline">
+          <p className="text-center text-sm text-ink-3">
+            <Link href="/login" className="font-semibold text-brand hover:underline">
               Volver al login
             </Link>
           </p>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, Suspense } from 'react';
+import { useEffect, useRef, useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { verifyEmail, resendVerification } from '@/lib/api/auth';
@@ -12,30 +12,31 @@ type Status = 'loading' | 'success' | 'error';
 
 function VerifyEmailContent() {
   const searchParams = useSearchParams();
-  const [status, setStatus] = useState<Status>('loading');
-  const [message, setMessage] = useState('');
+  const token = searchParams.get('token');
+  const [result, setResult] = useState<{ status: Status; message: string } | null>(null);
   const [email, setEmail] = useState('');
   const [isResending, setIsResending] = useState(false);
+  // The token is single-use: verify each one once, even when React StrictMode
+  // runs the effect twice in dev (the second call would fail and show an error).
+  const verifiedTokenRef = useRef<string | null>(null);
+
+  // A missing token is derived during render instead of set from the effect
+  const status: Status = !token ? 'error' : result?.status ?? 'loading';
+  const message = !token ? 'Token de verificación no encontrado' : result?.message ?? '';
+
+  const setStatus = (next: Status) => setResult((prev) => ({ status: next, message: prev?.message ?? '' }));
+  const setMessage = (next: string) => setResult((prev) => ({ status: prev?.status ?? 'loading', message: next }));
 
   useEffect(() => {
-    const token = searchParams.get('token');
-
-    if (!token) {
-      setStatus('error');
-      setMessage('Token de verificación no encontrado');
-      return;
-    }
+    if (!token || verifiedTokenRef.current === token) return;
+    verifiedTokenRef.current = token;
 
     const verify = async () => {
       try {
-        console.log('[VerifyEmail] Attempting to verify with token:', token);
         await verifyEmail(token);
         setStatus('success');
         setMessage('¡Email verificado exitosamente!');
-        console.log('[VerifyEmail] Verification successful');
       } catch (error: any) {
-        console.error('[VerifyEmail] Verification failed:', error);
-        console.error('[VerifyEmail] Error response:', error.response?.data);
         setStatus('error');
         const errorMsg = error.response?.data?.message || error.message;
         setMessage(errorMsg || 'Error al verificar el email. El token puede ser inválido o haber expirado.');
@@ -43,7 +44,7 @@ function VerifyEmailContent() {
     };
 
     verify();
-  }, [searchParams]);
+  }, [token]);
 
   const handleResend = async () => {
     if (!email) {
@@ -65,26 +66,26 @@ function VerifyEmailContent() {
   return (
     <Card className="w-full max-w-md">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold text-center">
+        <CardTitle className="large-title text-[30px] sm:text-center">
           Verificación de Email
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         {status === 'loading' && (
           <div className="text-center py-8">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Verificando tu email...</p>
+            <div className="animate-spin rounded-full h-10 w-10 border-[3px] border-fill-2 border-t-brand mx-auto"></div>
+            <p className="mt-4 text-ink-3">Verificando tu email...</p>
           </div>
         )}
 
         {status === 'success' && (
           <>
-            <Alert className="bg-green-50 border-green-200">
-              <p className="text-green-800">{message}</p>
+            <Alert className="bg-success-soft">
+              <p className="text-success-ink">{message}</p>
             </Alert>
             <div className="text-center">
               <Link href="/login">
-                <Button className="w-full">
+                <Button className="h-12 w-full text-[17px]">
                   Ir al Login
                 </Button>
               </Link>
@@ -98,7 +99,7 @@ function VerifyEmailContent() {
               {message}
             </Alert>
             <div className="space-y-2">
-              <p className="text-sm text-gray-600 text-center">
+              <p className="text-sm text-ink-3 text-center">
                 ¿Necesitas un nuevo enlace de verificación?
               </p>
               <input
@@ -108,11 +109,11 @@ function VerifyEmailContent() {
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-3 py-2 border rounded-md"
               />
-              <Button onClick={handleResend} className="w-full" disabled={isResending}>
+              <Button onClick={handleResend} className="h-12 w-full text-[17px]" disabled={isResending}>
                 {isResending ? 'Reenviando...' : 'Reenviar Email de Verificación'}
               </Button>
               <Link href="/login" className="block text-center">
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="h-12 w-full text-[17px]">
                   Volver al Login
                 </Button>
               </Link>
@@ -129,13 +130,13 @@ export default function VerifyEmailPage() {
     <Suspense fallback={
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center">
+          <CardTitle className="large-title text-[30px] sm:text-center">
             Verificación de Email
           </CardTitle>
         </CardHeader>
         <CardContent className="text-center py-8">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Cargando...</p>
+          <div className="animate-spin rounded-full h-10 w-10 border-[3px] border-fill-2 border-t-brand mx-auto"></div>
+          <p className="mt-4 text-ink-3">Cargando...</p>
         </CardContent>
       </Card>
     }>
